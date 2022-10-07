@@ -59,7 +59,7 @@ module.exports.signIn = async (req, res, next) => {
       .json({ message: "Le mot de pass ou l'email est invalide" });
   }
   const token = jwt.sign({ id: existingUser._id }, process.env.TOKEN_SECRETE, {
-    expiresIn: "30s",
+    expiresIn: "7d",
   });
 // console.log("GENERATED TOKEN\n",token);
 //   if (req.cookies[`${existingUser._id}`]) {
@@ -67,7 +67,7 @@ module.exports.signIn = async (req, res, next) => {
 //   }
   res.cookie(String(existingUser._id), token, {
     path: "/",
-    expires: new Date(Date.now() + 1000 * 360000),
+    expires: new Date(Date.now() + 1000 * 36000),
     httpOnly: true,
     sameSite: "lax",  
   });
