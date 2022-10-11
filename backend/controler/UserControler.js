@@ -8,7 +8,7 @@ module.exports.getAllUsers = async (req, res) => {
       else console.log("Error to get data" + error);
     })
     .select("-password");
-};
+};   
 
 // L'information d'un seul utilisateurs
 module.exports.userInfo = async (req, res) => {
@@ -35,7 +35,7 @@ module.exports.UpdateUser = async (req, res) => {
     };
 
     userModels
-      .findByIdAndUpdate(
+      .findByIdAndUpdate(  
         req.params.id,
         {
           $set: bio,

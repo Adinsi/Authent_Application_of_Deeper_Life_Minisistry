@@ -20,7 +20,7 @@ module.exports.checkUser = (req, res, next) => {
         }
       }
     );
-  } else {
+  } else {  
     res.locals.user = null;
     next();
   }

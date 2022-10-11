@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const express = require("express");
 const UserRoutes = require('./routes/userRoutes');
 const PostRoutes = require('./routes/postRoutes');
+const tourRoutes = require('./routes/tour');
 
 require("./config/db");
 const cors = require('cors');
@@ -26,14 +27,12 @@ app.use(bodyParser.json()); // Transformer les body en json
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // jwt
-app.get('*', checkUser);
-app.get('/jwtid', requireAuth, (req, res) => {
-  res.status(200).send({userId : res.locals.token})
-})
+
 
 //routes
 app.use('/api/user', UserRoutes);
 app.use('/api/post',PostRoutes)
+app.use('/api/post',tourRoutes)
 
 //server
 app.listen(process.env.PORT, () =>
