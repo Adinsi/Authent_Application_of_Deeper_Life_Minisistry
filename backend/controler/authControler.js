@@ -1,7 +1,7 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const { signUperror, signInerrors } = require("../utils/error.utils");
+
 const _ = require("lodash");
 const mailgun = require("mailgun-js");
 const DOMAIN = `sandbox5764400e994d44009c7557adcda885e1.mailgun.org`;

@@ -7,7 +7,7 @@ const fs = require("fs");
 
 
 const ObjectId = require('mongoose').Types.ObjectId;
-const {uploadErrors} = require('../utils/error.utils')
+// const {uploadErrors} = require('../utils/error.utils')
 
 module.exports.readPost = (req, res) => {
     PostModel.find((err, docs) => {

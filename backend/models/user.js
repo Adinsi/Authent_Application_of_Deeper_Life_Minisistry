@@ -56,6 +56,10 @@ const userSchema = new schema(
       data: String,
       default: "",
     },
+    verified: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
