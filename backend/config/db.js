@@ -10,6 +10,6 @@ mongoose
   )
   .then(() => console.log("connected to  mongo Db"))
   .catch((error) => {
-    console.log("Failled to " + error);   
+    console.log("Failled to " + error);    
   });
  

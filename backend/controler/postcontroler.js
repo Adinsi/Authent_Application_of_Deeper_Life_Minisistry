@@ -3,6 +3,7 @@ const UserModel = require('../models/user');
 const { promisify } = require("util");
 const pipeline = promisify(require("stream").pipeline);
 const fs = require("fs");
+const ObjetId = require("mongoose").Types.ObjectId;
 
 
 
@@ -15,37 +16,53 @@ module.exports.readPost = (req, res) => {
         else console.log('Error to get data:' + err);
     }).sort({createdAt:-1})
 }
+module.exports.userPost = async (req, res) => {
+  if (!ObjetId.isValid(req.params.id)) {
+    return res.status(400).send("Id Inconnue" + req.params.body);
+  }
+
+  PostModel
+    .findById(req.params.id, (err, docs) => {
+      if (!err) res.send(docs);
+      else console.log("Id unknow" + err);
+    });
+};
 
 module.exports.createPost = async (req, res) => { 
-  let fileName;
-  if (req.file !== null) {
-    try {
-      if (
-        req.file.detectedMineType !== "image/jpg" &&
-        req.file.detectedMineType !== "image/png" &&
-        req.file.detectedMineType !== "image/jpeg"
-      )
-        throw Error("Invalid File");
+  // let fileName;
+  // if (req.file !== null) {
+  //   try {
+  //     if (
+  //       req.file.detectedMineType !== "image/jpg" &&
+  //       req.file.detectedMineType !== "image/png" &&
+  //       req.file.detectedMineType !== "image/jpeg"
+  //     )
+  //       throw Error("Invalid File");
 
-      if (req.file.size > 500000) throw Error("max size");
-    } catch (error) {
-      const errors = uploadErrors(error);
-      res.status(200).json({ errors });
-    }
+  //     if (req.file.size > 500000) throw Error("max size");
+  //   } catch (error) {
+  //     const errors = uploadErrors(error);
+  //     res.status(200).json({ errors });
+  //   }
 
-    fileName = `${req.body.posterId}${Date.now()}.jpg`; 
-      await pipeline(
-        req.file.stream,
-        fs.createWriteStream(
-          `${__dirname}/../../../client/public/uploads/posts/${fileName}`
-        )
-      );
-  }
+  //   fileName = `${req.body.posterId}${Date.now()}.jpg`; 
+  //     await pipeline(
+  //       req.file.stream,
+  //       fs.createWriteStream(
+  //         `${__dirname}/../../../client/public/uploads/posts/${fileName}`
+  //       )
+  //     );
+  // }
     const newPost = new PostModel({
-        posterId: req.body.posterId,
+      posterId: req.body.posterId,
+      nom: req.body.nom,
+      prenom: req.body.prenom,
+     
+      activitePost: req.body.activitePost,
+      villePost :req.body.villePost,
       message: req.body.message,
-        picture:req.file !== null ? "./uploads/posts/" + fileName : "",
-        video: req.body.video,
+        // picture:req.file !== null ? "./uploads/posts/" + fileName : "",
+        // video: req.body.video,
         likers: [],
         comments: [] 
     })
@@ -113,7 +130,7 @@ module.exports.likePost = async (req, res) => {
     try {
       // Ajouter le like au publication
       PostModel.findByIdAndUpdate(
-        req.params.id,
+        req.params.id,  
         {
           $addToSet: { likers: req.body.id },
         },

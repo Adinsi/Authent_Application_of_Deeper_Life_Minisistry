@@ -13,7 +13,7 @@ const mg = mailgun({
 
 // Inscription d'un utilisateur
 module.exports.signUp = async (req, res) => {
-  const { nom, prenom, email, groupe, activite, tel, password } = req.body;
+  const { nom, prenom, email, ville, activite, tel, password } = req.body;
   let existingUser;
   try {
     existingUser = await User.findOne({ email: email });
@@ -31,10 +31,10 @@ module.exports.signUp = async (req, res) => {
     nom,
     prenom,
     email,
-    groupe,
+    ville,
     activite,
     tel,
-    password: hashedPassword,
+    password: hashedPassword, 
   });
 
   try {
@@ -237,7 +237,7 @@ module.exports.logOut = async (req, res) => {
   // res.redirect("/");
 
    const cookies = req.headers.cookie;
-   const preventToken = cookies?.split("=")[1];
+   const preventToken = cookies?.split("=")[1]; 
    if (!preventToken) {
      return res.status(404).json({ message: "Vous n'avez pas de token" });
   }

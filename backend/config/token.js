@@ -6,7 +6,8 @@ function generateToken() {
     console.log(token);
 }
 
-generateToken();
+generateToken(); 
+  
 
 
-
+  

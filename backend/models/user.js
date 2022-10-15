@@ -17,7 +17,7 @@ const userSchema = new schema(
       required: true,
       unique: true,
     },
-    groupe: {
+    ville: {
       type: String,
       required: true,
     },
@@ -43,10 +43,10 @@ const userSchema = new schema(
       type: [String],
     },
     following: {
-      type: [String],
+      type: [String],   
     },
     likes: {
-      type: [String],
+      type: [String],  
     },
     date: {
       type: Date,
@@ -58,12 +58,12 @@ const userSchema = new schema(
     },
     verified: {
       type: Boolean,
-      default: false,
+      default: false,   
     },
   },
   {
     timestamps: true,
-  }
+  }  
 );
 
 module.exports = mongoose.model("User", userSchema);

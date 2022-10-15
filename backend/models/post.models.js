@@ -6,17 +6,35 @@ const PostSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    message: {
+    nom: {
       type: String,
-      trim: true,
-      maxlength: 500,
+      required: true,
+    },
+    prenom: {
+      type: String,
+      required: true,
     },
     picture: {
       type: String,
+      default: "../uploads/profil/profil.png",
     },
-    video: {
+
+    activitePost: {
       type: String,
+      required: true,
+      trim: true,
     },
+    villePost: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    message: {
+      type: String,
+      trim: true,
+      maxlength: 300, 
+    },
+
     likers: {
       type: [String],
       required: true,
@@ -25,7 +43,7 @@ const PostSchema = new mongoose.Schema(
       type: [
         {
           commenterId: String,
-          commenterPseudo: String,
+          commenterPrenom: String, 
           text: String,
           timestamp: Number,
         },
