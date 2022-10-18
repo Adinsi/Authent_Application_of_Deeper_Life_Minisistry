@@ -201,14 +201,15 @@ module.exports.commentPost = async (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).json("Id Inconnue" + req.params.id);
     try {
-        return PostModel.findByIdAndUpdate(req.params.id, {
+        return PostModel.findOneAndUpdate(req.params.id, {
           $push: {
             comments: {
               commenterId: req.body.commenterId,
-              commenterPseudo: req.body.commenterPseudo,
+              commenterPrenom: req.body.commenterPrenom,
+              commenterNom: req.body.commenterNom,
               text:req.body.text ,
-              timestamp: new Date().getTime(),
-            },
+              timestamp: new Date().getTime(),  
+            }, 
           },
         },
             {
@@ -216,8 +217,9 @@ module.exports.commentPost = async (req, res) => {
             },
             (error, docs) => {
                 if (!error) return res.send(docs)
-                else return res.status(400).send(error)
-        });  
+                else return res.status(400).send(error)  
+          })
+          .clone();  
     } catch (error) {
         return res.status(400).send(error)
     }

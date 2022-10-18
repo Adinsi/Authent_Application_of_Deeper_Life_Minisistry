@@ -78,7 +78,7 @@ module.exports.signIn = async (req, res, next) => {
     expires: new Date(Date.now() + 1000 * 1000 * 1000),
     httpOnly: true,
     sameSite: "lax",
-  });
+  }); 
 
   return res
     .status(200)
@@ -87,7 +87,7 @@ module.exports.signIn = async (req, res, next) => {
 
 module.exports.verifyToken = async (req, res, next) => {
   const cookies = req.headers.cookie;
-  const token = cookies?.split("=")[1];
+  const token = cookies?.split("=")[1];  
   // console.log(token);
 
   if (!token) {

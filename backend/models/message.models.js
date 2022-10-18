@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const PostSchema = new mongoose.Schema(
+const MessageSchema = new mongoose.Schema(
   {
     posterId: {
       type: String,
@@ -32,7 +32,7 @@ const PostSchema = new mongoose.Schema(
     message: {
       type: String,
       trim: true,
-      maxlength: 300, 
+      maxlength: 300,
     },
 
     likers: {
@@ -43,8 +43,7 @@ const PostSchema = new mongoose.Schema(
       type: [
         {
           commenterId: String,
-          commenterPrenom: String,     
-          commenterNom: String,    
+          commenterPrenom: String,
           text: String,
           timestamp: Number,
         },
@@ -57,4 +56,4 @@ const PostSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("post", PostSchema);
+module.exports = mongoose.model("message", MessageSchema);
